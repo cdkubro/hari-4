@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crypto Price Tracker</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        
+        <table class="hero">
+        <tr><td></td><td><h1>BTC, ETH, SOL PRICE TRACKER</h1></td></tr>
+        <tr>
+            <td> <h1>BTC</h1></td>
+            <td> <h1>ETH</h1></td>
+            <td> <h1>SOL</h1></td>
+        </tr> 
+        <tr>
+            <td> <h1 id="harga-btc">Loading . . .</h1> </td>
+            <td> <h1 id="harga-eth">Loading . . .</h1> </td>
+            <td> <h1 id="harga-sol">Loading . . .</h1> </td>
+            </tr>
+            <tr><td></td><td><button id="btnRefresh" class="cta">PERBARUI HARGA</button></td></tr>
+        </table>
+
+<script>
+    const elBtc = document.querySelector("#harga-btc");
+    const elEth = document.querySelector("#harga-eth");
+    const elSol = document.querySelector("#harga-sol");
+    const btnRefresh = document.querySelector("#btnRefresh");
+
+
+function loadHarga() {
+  fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd")
+    .then(res => res.json())
+    .then(data => {
+      elBtc.textContent = "$" + data.bitcoin.usd;
+      elEth.textContent = "$" + data.ethereum.usd;
+      elSol.textContent = "$" + data.solana.usd;
+    });
+}
+btnRefresh.addEventListener("click", loadHarga);
+loadHarga();
+</script>
+    
+        
+    </body>
+    
+
+</html>
